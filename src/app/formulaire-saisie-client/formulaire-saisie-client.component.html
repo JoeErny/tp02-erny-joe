@@ -1,0 +1,61 @@
+<p>_______________ formulaire saisie client _____________________</p>
+Prenom :
+<input [(ngModel)]="client.prenom" (change)="verifierInfos()" />
+<label appHighlight>{{erreur_prenom}}</label>
+
+<br><br>
+Nom :
+
+<input [(ngModel)]="client.nom" (change)="verifierInfos()" />
+<label appHighlight>{{erreur_nom}}</label>
+
+<br><br>
+Tel :
+<input [(ngModel)]="client.tel" (change)="verifierInfos()" />
+
+<br><br>
+Code postal :
+<input [(ngModel)]="client.cp" (change)="verifierInfos()" />
+
+<label appHighlight>{{erreur_cp}}</label>
+
+
+<label *ngIf="cpValide; else noCp" style="color: green;">
+   Cp Valide
+</label>
+<ng-template #noCp>
+    <label title="Code postal non valide"  appHighlight>
+    </label>
+</ng-template>
+
+
+<br><br>
+Email :
+<input [(ngModel)]="client.email" (change)="verifierInfos()" />
+{{erreur_email}}
+<br><br>
+Login :
+<input [(ngModel)]="client.login" (change)="verifierInfos()" />
+<br><br>
+Mdp :
+<input [(ngModel)]="client.password" (change)="verifierInfos()" />
+<br><br>
+Civilite :
+<select class="form-select" id="civ" required [(ngModel)]="client.civilite">
+    <option value="">Choose...</option>
+    <option>Homme</option>
+    <option>Femme</option>
+    <option>Autre</option>
+</select>
+
+<br><br>
+
+<button [disabled]="saisieValide" (click)="validerInfos()">Valider les informations</button>
+{{saisieValide}}
+<br><br><br>
+
+<div *ngIf="saisieValide">
+    <app-recapitulatif-saisie-client [client]='client'></app-recapitulatif-saisie-client>
+</div>
+
+<label appHighlight *ngIf="!client.isFullyFilled();">TOUS LES CHAMPS NE SONT PAS REMPLIS</label>
